@@ -2,8 +2,10 @@ import React from "react";
 import {Button, Grid, Link, Paper, TextField, Typography,} from "@material-ui/core";
 import {useDispatch} from 'react-redux'
 import {performAuth} from "../redux/reducers/authSlice";
+import {useHistory} from 'react-router-dom';
 
 export function LoginForm() {
+    const history = useHistory();
     // const count = useSelector(selectiIsAuth);
     const dispatch = useDispatch();
     return <div>
@@ -62,26 +64,34 @@ export function LoginForm() {
                                             color="primary"
                                             type="submit"
                                             className="button-block"
-                                            onClick={(form) => dispatch(performAuth({
-                                                isAuth: true,
-                                                authKey: "123123",
-                                                defaultLogin: ""
-                                            }))}
-                                        >
-                                            Войти
-                                        </Button>
-                                    </Grid>
-                                </Grid>
-                            </form>
-                        </Grid>
-                        <Grid item>
-                            <Link href="#" variant="body2">
-                                Забыли пароль?
-                            </Link>
-                        </Grid>
-                    </Paper>
-                </Grid>
-            </Grid>
-        </Grid>
-    </div>
-}
+                                            onClick={(form) => {
+                                                form.preventDefault();
+                                                fetch(`http://localhost:3000/profile`)
+                                                    .then(response => response.json())
+                                                    .then(json => {
+                                                        dispatch(performAuth({
+                                                            isAuth: true,
+                                                            authKey: "123123",
+                                                            defaultLogin: ""
+                                                        }));
+                                                        history.push("/main")
+                                                    })
+                                            }}
+                                                >
+                                                Войти
+                                                </Button>
+                                                </Grid>
+                                                </Grid>
+                                                </form>
+                                                </Grid>
+                                                <Grid item>
+                                                <Link href="#" variant="body2">
+                                                Забыли пароль?
+                                                </Link>
+                                                </Grid>
+                                                </Paper>
+                                                </Grid>
+                                                </Grid>
+                                                </Grid>
+                                                </div>
+                                                }

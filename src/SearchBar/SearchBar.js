@@ -7,7 +7,7 @@ import SubjectIcon from '@material-ui/icons/Subject';
 import PersonIcon from '@material-ui/icons/Person';
 
 
-export default function SearchBar() {
+export function SearchBar() {
     return (
         <div className={"menu-wrapper"}>
             <AppBar position="static">

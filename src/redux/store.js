@@ -1,6 +1,10 @@
 
 import {configureStore} from "@reduxjs/toolkit";
 import authReducer from '../redux/reducers/authSlice'
+import {createStore} from "redux";
 
-
-export default configureStore({reducer: {authReducer: authReducer}});
+const persistedState = localStorage.getItem('reduxState')
+    ? JSON.parse(localStorage.getItem('reduxState'))
+    : {}
+//export default configureStore({reducer: {authReducer: authReducer}});
+export default createStore(authReducer,persistedState);
