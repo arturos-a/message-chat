@@ -8,11 +8,15 @@ export const authSlice = createSlice({
             state.isAuth = action.payload.isAuth
             state.authKey = action.payload.authKey
             state.defaultLogin = action.payload.defaultLogin
-            localStorage.setItem("reduxState", JSON.stringify(state));
         }
     }
 })
+const {actions, reducer} = authSlice
+export const {performAuth} = actions
 
-export const {performAuth} = authSlice.actions
-export const selectiIsAuth = state => state.isAuth;
-export default authSlice.reducer
+export function authSelector(state) {
+    return state.auth;
+}
+
+
+export default reducer

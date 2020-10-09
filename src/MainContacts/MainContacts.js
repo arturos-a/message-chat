@@ -8,6 +8,8 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 import {fade} from "@material-ui/core";
 import InputBase from "@material-ui/core/InputBase";
 import clsx from "clsx";
+import ContactList from "./ContactList";
+import {dashSelector} from "../redux/reducers/dashboardSlice";
 
 const useStyles = makeStyles((theme) => ({
     search: {
@@ -48,14 +50,14 @@ const useStyles = makeStyles((theme) => ({
         },
     },
     leftPanel: {
-        minHeight: '500px',
+        minHeight: '700px',
         width: '40%',
         float: 'left',
-        backgroundColor: '#bec0c1'
+        backgroundColor: '#55595a'
     }
 }));
 
-export function MainContacts() {
+export function MainContacts(props) {
     const classes = useStyles();
     return <div className={classes.leftPanel}>
         <AppBar position="static">
@@ -78,5 +80,6 @@ export function MainContacts() {
                 </div>
             </Toolbar>
         </AppBar>
+        <ContactList/>
     </div>
 }
