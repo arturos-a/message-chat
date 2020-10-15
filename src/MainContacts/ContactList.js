@@ -3,7 +3,8 @@ import makeStyles from "@material-ui/core/styles/makeStyles";
 import Avatar from "@material-ui/core/Avatar";
 import {deepOrange} from '@material-ui/core/colors';
 import {connect, useDispatch} from "react-redux";
-import {dashSelector, updateChat} from "../redux/reducers/dashboardSlice";
+import {dashSelector, fetchContactsByUserId, updateChat, updateSelectedContact } from "../redux/reducers/dashboardSlice";
+import store from "../redux/store";
 
 const useStyles = makeStyles((theme) => ({
     contactsBlock: {
@@ -14,6 +15,9 @@ const useStyles = makeStyles((theme) => ({
         "&:hover, &:focus": {
             backgroundColor: '#3f51b5', cursor: 'default'
         }
+    },
+    contactItemSelected: {
+        marginTop: '5px', color: 'white', height: '60px', backgroundColor: '#3f51b5', cursor: 'default'
     },
     itemAvatar: {
         float: 'left',
@@ -40,16 +44,22 @@ function ContactList(props) {
     const dispatch = useDispatch();
     const state = dashSelector(props)
     const contactsList = state.contacts
+    const profileId = state.profileId;
+    const selectedContactId = state.selectedContactId;
     useEffect(() => {
-        dispatch(updateChat({userId:5}));
-        console.log('mount it!');
-    }, []);
+        dispatch(fetchContactsByUserId(profileId))
+    }, [])
     return (
         <div className={classes.contactsBlock}>{contactsList.map((item, i) => {
             const iconAvatar = item.avatarImg && item.avatarImg !== "" ?
                 <Avatar className={classes.orange}>{item.name.charAt(0)}</Avatar> :
                 <Avatar alt={item.name} src={item.avatarImg}/>
-            return (<div key={item.id} className={classes.contactItem}>
+            return (<div key={item.id}
+                         className={item.id === selectedContactId ? classes.contactItemSelected : classes.contactItem}
+                         onClick={
+                             data=> {
+                                 dispatch(updateSelectedContact(item.id));
+                             } }>
                 <div className={classes.itemAvatar}>{iconAvatar}</div>
                 <div className={classes.itemHeader}>{item.name}</div>
                 <div className={classes.itemLastDate}>{item.lastContactDate}</div>

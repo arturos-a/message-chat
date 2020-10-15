@@ -2,17 +2,28 @@
   "contacts": [
     {
       "id": 12312,
-      "name": "Ivan Ivanov",
-      "lastContactDate": "02.10.2020",
-      "avatarImg": "",
-      "shortMessage": "Hi! What's up?"
+      "contacts": [
+        {
+          "id": 12312,
+          "name": "Ivan Ivanov",
+          "lastContactDate": "02.10.2020",
+          "avatarImg": "",
+          "shortMessage": "Hi! What's up?"
+        },
+        {
+          "id": 9879898,
+          "name": "Peter Petrov",
+          "lastContactDate": "01.10.2020",
+          "avatarImg": "",
+          "shortMessage": "Ok! "
+        }
+      ]
     },
     {
-      "id": 9879898,
-      "name": "Peter Petrov",
-      "lastContactDate": "01.10.2020",
-      "avatarImg": "",
-      "shortMessage": "Ok! "
+      "id": 9879899
+    },
+    {
+      "id": 9879900
     }
   ],
   "comments": [
