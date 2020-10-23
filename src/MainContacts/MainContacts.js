@@ -10,6 +10,10 @@ import InputBase from "@material-ui/core/InputBase";
 import clsx from "clsx";
 import ContactList from "./ContactList";
 import {dashSelector} from "../redux/reducers/dashboardSlice";
+import Menu from "@material-ui/core/Menu";
+import MenuItem from "@material-ui/core/MenuItem";
+import {useDispatch} from "react-redux";
+import {performLogout} from "../redux/reducers/authSlice";
 
 const useStyles = makeStyles((theme) => ({
     search: {
@@ -59,12 +63,40 @@ const useStyles = makeStyles((theme) => ({
 
 export function MainContacts(props) {
     const classes = useStyles();
+    const dispatch = useDispatch();
+    const [anchorEl, setAnchorEl] = React.useState(null);
+
+    const handleClick = (event) => {
+        setAnchorEl(event.currentTarget);
+    };
+
+    const handleClose = () => {
+        setAnchorEl(null);
+    };
+
+    const logout = () => {
+        handleClose();
+        dispatch(performLogout())
+    }
+
+
     return <div className={classes.leftPanel}>
         <AppBar position="static">
             <Toolbar>
-                <IconButton edge="start" className={"menuButton"} color="inherit" aria-label="menu">
+                <IconButton edge="start" className={"menuButton"} color="inherit" aria-label="menu"
+                            onClick={handleClick}>
                     <SubjectIcon/>
                 </IconButton>
+                <Menu
+                    id="main-menu"
+                    anchorEl={anchorEl}
+                    keepMounted
+                    open={Boolean(anchorEl)}
+                    onClose={handleClose}
+                >
+                    <MenuItem onClick={handleClose}>Profile</MenuItem>
+                    <MenuItem onClick={logout}>Logout</MenuItem>
+                </Menu>
                 <div className={classes.search}>
                     <div className={classes.searchIcon}>
                         <SearchIcon/>

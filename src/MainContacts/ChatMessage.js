@@ -14,7 +14,6 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function ChatMessage(props) {
-    console.log("ChatMessage")
     const chats = props.chats;
     let classes = useStyles();
     return <div className={classes.chatBlock}></div>
